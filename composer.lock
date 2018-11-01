@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bcfbe98f3677ae4d4fe631536c9d296a",
+    "content-hash": "7f7ee1d9823fea883ff7a50f29a5cf84",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1357,6 +1357,47 @@
             "time": "2017-10-23T01:57:42+00:00"
         },
         {
+            "name": "remg/generator-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Remg/GeneratorBundle.git",
+                "reference": "7bb472884dcea0a6d63a7841dc4b71a9b3b23302"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Remg/GeneratorBundle/zipball/7bb472884dcea0a6d63a7841dc4b71a9b3b23302",
+                "reference": "7bb472884dcea0a6d63a7841dc4b71a9b3b23302",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-bundle": "^1.6",
+                "doctrine/orm": "^2.5",
+                "php": ">=5.5.9",
+                "symfony/framework-bundle": "~2.7|~3.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "dev-master",
+                "phpunit/phpunit": "5.6.*",
+                "symfony/phpunit-bridge": "^3.2"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Remg\\GeneratorBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Code generation tool for Symfony3.",
+            "time": "2017-09-20T10:40:46+00:00"
+        },
+        {
             "name": "sensio/distribution-bundle",
             "version": "v5.0.22",
             "source": {
@@ -2444,14 +2485,13 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "remg/generator-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=5.5.9"
     },
-    "platform-dev": [],
-    "platform-overrides": {
-        "php": "5.6"
-    }
+    "platform-dev": []
 }

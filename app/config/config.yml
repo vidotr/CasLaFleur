@@ -69,3 +69,8 @@ swiftmailer:
 sensio_framework_extra:
    router:
         annotations: false
+        
+remg_generator:
+    entity:
+        # available configuration formats are: 'annotation', 'yaml', 'xml' and 'php'.
+        configuration_format: annotation
