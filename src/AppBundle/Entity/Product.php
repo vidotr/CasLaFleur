@@ -38,7 +38,7 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="picture", type="blob", unique=true)
+     * @ORM\Column(name="picture", type="blob")
      */
     private $picture;
 
