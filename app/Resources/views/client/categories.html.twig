@@ -15,27 +15,14 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Accueil</a>
+                </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
+                    <a class="nav-link" href="#">Voir le catalogue</a>
                 </li>
             </ul>
+            <a class="nav-link" href="#" style="color: white;"><i class="fas fa-shopping-cart"></i>&nbsp;Voir son panier</a>
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Login</button>
         </div>
     </nav>
@@ -44,7 +31,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-4">
                 <div class="card" style="width: 18rem; margin-left: 25%;">
-                    <img class="card-img-top" src="{{ asset('plants.jpeg') }}" alt="Card image cap">
+                    <img class="card-img-top" src="{{ asset('images/plants.jpeg') }}" alt="Card image plants">
                     <div class="card-body">
                         <h1 class="card-title">Plantes</h1>
                         <p class="card-text">Retouvez nos différentes plantes.</p>
@@ -54,7 +41,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="card" style="width: 18rem; margin-left: 25%;">
-                    <img class="card-img-top" src="{{ asset('flowers.jpeg') }}" alt="Card image cap">
+                    <img class="card-img-top" src="{{ asset('images/flowers.jpeg') }}" alt="Card image flowers">
                     <div class="card-body">
                         <h1 class="card-title">Fleurs</h1>
                         <p class="card-text">Retrouvez nos différentes fleurs.</p>
@@ -64,11 +51,11 @@
             </div>
             <div class="col-lg-4">
                 <div class="card" style="width: 18rem; margin-left: 25%;">
-                    <img class="card-img-top" src="{{ asset('compo.jpeg') }}" alt="Card image cap">
+                    <img class="card-img-top" src="{{ asset('images/compo.jpeg') }}" alt="Card image compo">
                     <div class="card-body">
                         <h1 class="card-title">Compositions</h1>
                         <p class="card-text">Retrouvez nos différentes compositions.</p>
-                        <a href="#" class="btn btn-primary">Voir</a>
+                        <a href="/product/2" class="btn btn-primary">Voir</a>
                     </div>
                 </div>
             </div>
