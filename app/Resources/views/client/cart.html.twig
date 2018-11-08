@@ -32,39 +32,65 @@
     </nav>
     <br>
     <div class="container-fluid">
-        <h1>Liste des produits</h1>
+        <h1>Votre panier</h1>
         <br>
-        {% for prod in listProd %}
+        <div class="row justify-content-center">
+            <div class='col-1'>
+                <h3>Image</h3>
+            </div>
+            <div class='col-2'>
+                <h3>Produit</h3>
+            </div>
+            <div class='col-1'>
+                <h3>Prix</h3>
+                
+            </div>
+            <div class='col-1'>
+                <h3>Quantité</h3>
+            </div>
+            <div class='col-1'>
+                <div class="row justify-content-center">
+                </div>
+            </div>
+        </div>
+        <hr>
+        {% for row in listRow %}
             <div class="row justify-content-center">
                 <div class='col-1'>
-                    <img class="card-img-top" src="{{ asset(prod.picture) }}" style='width: 100px; height: 100px;'>
+                    <img class="card-img-top" src="{{ asset(row.product.picture) }}" style='width: 100px; height: 100px;'>
                 </div>
                 <div class='col-2'>
                     <br><br>
-                    {{prod.designation}}
+                    {{row.product.designation}}
                 </div>
                 <div class='col-1'>
                     <br><br>
-                    {{prod.price}} €
+                    {{row.product.price}} €
+                </div>
+                <div class='col-1'>
+                    <br><br>
+                    {{row.quantity}}
                 </div>
                 <div class='col-1'>
                     <br><br>
                     <div class="row justify-content-center">
-                        <form method="post">
-                            <div class="input-group">
-                                <input type="hidden" name="idProd" value="{{prod.id}}">
-                                <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1" aria-describedby="btnAddCart" required>
-                                <div class="input-group-prepend">
-                                    <button type="submit" id="btnAddCart" class="btn btn-light input-group-text">
-                                        <i class="fas fa-cart-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
-                <hr>
+            <hr>
         {% endfor %}
+        <div class="row justify-content-center">
+            <div class='col-4 text-center'>
+                <h4>Total</h4>
+            </div>
+            <div class='col-1'>
+                <h4>{{quant}} €</h4>
+                
+            </div>
+            <div class='col-1'>
+                <div class="row justify-content-center">
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
