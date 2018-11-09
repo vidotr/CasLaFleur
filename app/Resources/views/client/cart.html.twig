@@ -26,71 +26,77 @@
                     <a class="nav-link" href="/cat">Voir le catalogue</a>
                 </li>
             </ul>
-            <a class="nav-link" href="#" style="color: white;"><i class="fas fa-shopping-cart"></i>&nbsp;Voir son panier</a>
+            <a class="nav-link" href="/cart" style="color: white;"><i class="fas fa-shopping-cart"></i>&nbsp;Voir son panier</a>
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Login</button>
         </div>
     </nav>
     <br>
     <div class="container-fluid">
-        <h1>Votre panier</h1>
-        <br>
-        <div class="row justify-content-center">
-            <div class='col-1'>
-                <h3>Image</h3>
-            </div>
-            <div class='col-2'>
-                <h3>Produit</h3>
-            </div>
-            <div class='col-1'>
-                <h3>Prix</h3>
-                
-            </div>
-            <div class='col-1'>
-                <h3>Quantité</h3>
-            </div>
-            <div class='col-1'>
-                <div class="row justify-content-center">
-                </div>
-            </div>
-        </div>
-        <hr>
-        {% for row in listRow %}
+        {% if listRow %}
+            <h1>Votre panier</h1>
+            <br>
             <div class="row justify-content-center">
-                <div class='col-1'>
-                    <img class="card-img-top" src="{{ asset(row.product.picture) }}" style='width: 100px; height: 100px;'>
+                <div class='col-1 text-center'>
+                    <h3>Image</h3>
                 </div>
-                <div class='col-2'>
-                    <br><br>
-                    {{row.product.designation}}
+                <div class='col-2 text-center'>
+                    <h3>Produit</h3>
                 </div>
-                <div class='col-1'>
-                    <br><br>
-                    {{row.product.price}} €
+                <div class='col-1 text-center'>
+                    <h3>Prix</h3>
+
                 </div>
-                <div class='col-1'>
-                    <br><br>
-                    {{row.quantity}}
-                </div>
-                <div class='col-1'>
-                    <br><br>
-                    <div class="row justify-content-center">
-                    </div>
+                <div class='col-1 text-center'>
+                    <h3>Quantité</h3>
                 </div>
             </div>
             <hr>
-        {% endfor %}
-        <div class="row justify-content-center">
-            <div class='col-4 text-center'>
-                <h4>Total</h4>
-            </div>
-            <div class='col-1'>
-                <h4>{{quant}} €</h4>
-                
-            </div>
-            <div class='col-1'>
+            {% for row in listRow %}
                 <div class="row justify-content-center">
+                    <div class='col-1'>
+                        <a href="/delProductCart/{{row.id}}"><i class="fas fa-times-circle"></i></a>&nbsp;&nbsp;<img class="card-img-top" src="{{ asset(row.product.picture) }}" style='width: 100px; height: 100px;'>
+                    </div>
+                    <div class='col-2 text-center'>
+                        <br><br>
+                        {{row.product.designation}}
+                    </div>
+                    <div class='col-1 text-center'>
+                        <br><br>
+                        {{row.product.price}} €
+                    </div>
+                    <div class='col-1 text-center'>
+                        <br><br>
+                        <a href="/minusProduct/{{row.id}}"><i class="fas fa-minus-circle"></i></a>&nbsp;&nbsp;{{row.quantity}}&nbsp;&nbsp;<a href="/plusProduct/{{row.id}}"><i class="fas fa-plus-circle"></i></a>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+            <div class="row justify-content-center">
+                <div class='col-4 text-center'>
+                    <h4>Total</h4>
+                </div>
+                <div class='col-1'>
+                    <h4>{{quant}} €</h4>
+
                 </div>
             </div>
-        </div>
+            <br>
+            <div class="row justify-content-center">
+                <div class='col-5'>
+                    <div class="row justify-content-end">
+                        <div class='col-4'>
+                            <div class='row'>
+                                <a href="/clearCart" class="btn btn-secondary">Vider son panier</a>&nbsp;&nbsp;
+                                <a href="/order" class="btn btn-primary">Payer</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
+            <br><br>
+            <h1>Votre panier est vide ! Pensez à le remplir ;)</h1>
+        {% endif %}
     </div>
 {% endblock %}

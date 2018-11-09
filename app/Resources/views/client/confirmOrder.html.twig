@@ -1,0 +1,68 @@
+{% extends "base.html.twig" %}
+{% block title %}Home{% endblock %}
+{% block stylesheets %}
+    <style>
+        h1{
+            font-family: 'Pacifico', cursive;
+            text-align: center;
+        }
+        p{
+            font-family: 'Bree Serif', serif;
+            font-size: 24px;
+        }
+        hr{
+            width: 50%;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Accueil</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/cat">Voir le catalogue</a>
+                </li>
+            </ul>
+            <a class="nav-link" href="/cart" style="color: white;"><i class="fas fa-shopping-cart"></i>&nbsp;Voir son panier</a>
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Login</button>
+        </div>
+    </nav>
+    <br>
+    <div class="container-fluid">
+        <h1>Entrez vos informations de livraison</h1>
+        <div class="row justify-content-center">
+            <div class='col-2'>
+                {{ form_start(form) }}
+                    <div class="form-group">
+                        <label for="">Prénom :</label>
+                        {{ form_widget(form.firstname)}}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nom :</label>
+                        {{ form_widget(form.lastname)}}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Numéro de la rue :</label>
+                        {{ form_widget(form.numberDelivery)}}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nom de la rue :</label>
+                        {{ form_widget(form.streetDelivery)}}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Code postal :</label>
+                        {{ form_widget(form.zipCode)}}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Ville :</label>
+                        {{ form_widget(form.townDelivery)}}
+                    </div>
+                    {{ form_widget(form.save)}}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
