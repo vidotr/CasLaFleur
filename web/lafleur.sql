@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 08 nov. 2018 à 12:12
+-- Généré le :  Dim 11 nov. 2018 à 21:24
 -- Version du serveur :  5.7.23
 -- Version de PHP :  5.6.38
 
@@ -32,16 +32,14 @@ DROP TABLE IF EXISTS `cart`;
 CREATE TABLE IF NOT EXISTS `cart` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `cart`
 --
 
 INSERT INTO `cart` (`id`) VALUES
-(2),
-(3),
-(5);
+(11);
 
 -- --------------------------------------------------------
 
@@ -71,6 +69,55 @@ INSERT INTO `category` (`id`, `description`, `code`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `indent`
+--
+
+DROP TABLE IF EXISTS `indent`;
+CREATE TABLE IF NOT EXISTS `indent` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cart_id` int(11) DEFAULT NULL,
+  `firstname` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `lastname` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `number_delivery` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `street_delivery` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `zip_code` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `town_delivery` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_EE75AC8E1AD5CDBF` (`cart_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `indent`
+--
+
+INSERT INTO `indent` (`id`, `cart_id`, `firstname`, `lastname`, `number_delivery`, `street_delivery`, `zip_code`, `town_delivery`) VALUES
+(3, 11, 'Ruben', 'Vidot', '6', 'Rue De Paris', '97419', 'La Possession');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `login`
+--
+
+DROP TABLE IF EXISTS `login`;
+CREATE TABLE IF NOT EXISTS `login` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_AA08CB10AA08CB10` (`login`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `login`
+--
+
+INSERT INTO `login` (`id`, `login`, `password`) VALUES
+(1, 'toto', 'toto');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `product`
 --
 
@@ -85,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   UNIQUE KEY `UNIQ_D34A04AD8947610D` (`designation`),
   UNIQUE KEY `UNIQ_D34A04AD16DB4F89` (`picture`),
   KEY `IDX_D34A04AD12469DE2` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `product`
@@ -112,7 +159,8 @@ INSERT INTO `product` (`id`, `category_id`, `designation`, `price`, `picture`) V
 (22, 1, 'Belle coupe de plantes blanches', '128.00', '/products/pla_losloque.gif'),
 (23, 1, 'Pot de mitonia mauve', '83.00', '/products/pla_papouasi.gif'),
 (24, 1, 'Pot de phalaonopsis blanc', '58.00', '/products/pla_pionosa.gif'),
-(25, 1, 'Pot de phalaonopsis rose mauve', '58.00', '/products/pla_sabana.gif');
+(25, 1, 'Pot de phalaonopsis rose mauve', '58.00', '/products/pla_sabana.gif'),
+(26, 1, 'Test', '12.00', 'C:\\wamp64\\tmp\\php22A5.tmp');
 
 -- --------------------------------------------------------
 
@@ -129,25 +177,25 @@ CREATE TABLE IF NOT EXISTS `row` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8430F6DB4584665A` (`product_id`,`cart_id`) USING BTREE,
   KEY `IDX_8430F6DB1AD5CDBF` (`cart_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `row`
 --
 
 INSERT INTO `row` (`id`, `product_id`, `cart_id`, `quantity`) VALUES
-(2, 1, 2, 1),
-(3, 2, 3, 1),
-(4, 3, 2, 1),
-(5, 4, 2, 1),
-(7, 1, 5, 7),
-(8, 2, 5, 1),
-(9, 3, 5, 1),
-(16, 19, 5, 12);
+(35, 19, 11, 3),
+(37, 6, 11, 1);
 
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `indent`
+--
+ALTER TABLE `indent`
+  ADD CONSTRAINT `FK_EE75AC8E1AD5CDBF` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`);
 
 --
 -- Contraintes pour la table `product`
