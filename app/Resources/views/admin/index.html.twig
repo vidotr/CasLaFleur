@@ -1,0 +1,54 @@
+{% extends "base.html.twig" %}
+{% block title %}Home{% endblock %}
+{% block stylesheets %}
+    <style>
+        h1{
+            font-family: 'Pacifico', cursive;
+        }
+        p{
+            font-family: 'Bree Serif', serif;
+            font-size: 24px;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Les commandes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/gestProd">Gérer les produits</a>
+                </li>
+            </ul>
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Déconnexion</button>
+        </div>
+    </nav>
+    <br>
+    <div class="container-fluid">
+        <h1>Liste des commandes</h1>
+        <br>
+        {% for order in listOrder %}
+            
+            <div class="alert alert-secondary" role="alert">
+                <a class="close float-right" href="/admin/delOrder/{{order.id}}" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <h4 class="alert-heading">Commande de : {{order.lastname}} {{order.firstname}}</h4>
+                <p>Au : {{order.numberDelivery}} {{order.streetDelivery}} {{order.zipCode}} {{order.townDelivery}}</p>
+                <hr>
+                <p class="mb-0">
+                    Composé de :
+                    {% for row in listInOrder[order.id] %}
+                        <div class="row justify-content-center">
+                            <div class='col-12'>
+                                {{row.quantity}} {{row.product.designation}}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

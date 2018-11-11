@@ -1,0 +1,78 @@
+{% extends "base.html.twig" %}
+{% block title %}Home{% endblock %}
+{% block stylesheets %}
+    <style>
+        h1{
+            font-family: 'Pacifico', cursive;
+            text-align: center;
+        }
+        p{
+            font-family: 'Bree Serif', serif;
+            font-size: 24px;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/">Les commandes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Gérer les produits</a>
+                </li>
+            </ul>
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Déconnexion</button>
+        </div>
+    </nav>
+    <br>
+    <div class="container-fluid">
+        <h1>Entrez vos informations de livraison</h1>
+        <div class="row justify-content-center">
+            <div class='col-2'>
+                {{ form_start(form) }}
+                    <div class="form-group">
+                        <label for="">Designation :</label>
+                        {{ form_widget(form.designation)}}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Prix :</label>
+                        {{ form_widget(form.price)}}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Photo :</label>
+                        {{ form_widget(form.picture)}}
+                    </div>
+                    {{ form_widget(form.save)}}
+                {{ form_end(form) }}
+            </div>
+        </div>
+            <br><br>
+        <h1>Liste des produits</h1>
+        <br>
+        {% for prod in listProd %}
+            <div class="row justify-content-center">
+                <div class='col-1'>
+                    <img class="card-img-top" src="{{ asset(prod.picture) }}" style='width: 100px; height: 100px;'>
+                </div>
+                <div class='col-2'>
+                    <br><br>
+                    {{prod.designation}}
+                </div>
+                <div class='col-1'>
+                    <br><br>
+                    {{prod.price}} €
+                </div>
+                <div class='col-1'>
+                    <br><br>
+                    <div class="row justify-content-center">
+                        <a class="btn btn-warning"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;
+                        <a href="/admin/delProd/{{prod.id}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                    </div>
+                </div>
+            </div>
+                <hr>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Product
@@ -39,13 +40,14 @@ class Product
      * @var string
      *
      * @ORM\Column(name="picture", type="string", length=255, nullable=false, unique=true)
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/gif", "image/png" })
      */
     private $picture;
 
     /**
-     * @var \AppBundle\Entity\Category
+     * @var Category
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      * })
@@ -138,11 +140,11 @@ class Product
     /**
      * Set category
      *
-     * @param \AppBundle\Entity\Category $category
+     * @param Category $category
      *
      * @return Product
      */
-    public function setCategory(\AppBundle\Entity\Category $category = null)
+    public function setCategory(Category $category = null)
     {
         $this->category = $category;
 
@@ -152,7 +154,7 @@ class Product
     /**
      * Get category
      *
-     * @return \AppBundle\Entity\Category
+     * @return Category
      */
     public function getCategory()
     {

@@ -3,12 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Ruben/Documents/NetBeansProjects/CasLaFleur/src/AppBundle/Entity/Product.php</file>
-            <file>file:/C:/Users/Ruben/Documents/NetBeansProjects/CasLaFleur/app/Resources/views/client/products.html.twig</file>
-            <file>file:/C:/Users/Ruben/Documents/NetBeansProjects/CasLaFleur/src/AppBundle/Controller/PrincipalController.php</file>
-            <file>file:/C:/Users/Ruben/Documents/NetBeansProjects/CasLaFleur/src/AppBundle/Entity/Row.php</file>
-            <file>file:/C:/Users/Ruben/Documents/NetBeansProjects/CasLaFleur/app/Resources/views/client/index.html.twig</file>
-            <file>file:/C:/Users/Ruben/Documents/NetBeansProjects/CasLaFleur/app/Resources/views/client/categories.html.twig</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/CasLaFleur/src/AppBundle/Entity/Cart.php</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/CasLaFleur/src/AppBundle/Form/IndentType.php</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/CasLaFleur/src/AppBundle/Entity/Indent.php</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/CasLaFleur/app/Resources/views/client/products.html.twig</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/CasLaFleur/app/Resources/views/login.html.twig</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/CasLaFleur/app/Resources/views/client/index.html.twig</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/CasLaFleur/app/Resources/views/client/confirmOrder.html.twig</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/CasLaFleur/src/AppBundle/Controller/ClientController.php</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/CasLaFleur/src/AppBundle/Entity/Login.php</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/CasLaFleur/app/Resources/views/admin/index.html.twig</file>
         </group>
     </open-files>
 </project-private>

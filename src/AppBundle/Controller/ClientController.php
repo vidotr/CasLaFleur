@@ -4,7 +4,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Cart;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Indent;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Row;
 use AppBundle\Form\IndentType;
@@ -13,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-class PrincipalController extends Controller {
+class ClientController extends Controller {
 
     /**
      * @Route("/", name="homepage")
@@ -210,6 +209,26 @@ class PrincipalController extends Controller {
             return $this->redirectToRoute('homepage');
         }
         return $this->render('client/confirmOrder.html.twig', array('form' => $form->createView()));
+    }
+    
+    /**
+     * @Route("/login", name="login")
+     */
+    public function logAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $queryLog = $em->createQuery('SELECT l FROM AppBundle:Login l WHERE l.login = :login AND l.password = :pswd');
+        $queryLog->setParameter('login', $request->request->get('inputEmail'));
+        $queryLog->setParameter('pswd', $request->request->get('inputPassword'));
+        $log = $queryLog->execute();
+        if($request->request->get('inputEmail') != null) {
+            if ($log) {
+                return $this->redirectToRoute('adminHome');
+            } else {
+                return $this->render('login.html.twig', array('error' => true));
+            }
+        }
+
+        return $this->render('login.html.twig');
     }
 
 }

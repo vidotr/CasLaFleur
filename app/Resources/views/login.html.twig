@@ -1,0 +1,99 @@
+{% extends "base.html.twig" %}
+{% block title %}Home{% endblock %}
+{% block stylesheets %}
+    <style>
+        body{
+            font-family: "Helvetica Neue", sans-serif;
+            background:#1a1a1a;
+            background-size:2000px 1000px;
+            background-position:top center;
+        }
+        a{
+            color:#fff;
+            text-decoration: none;
+            text-shadow:#000 0px 1px 3px;
+        }
+        .wrap{
+            width:600px;
+            margin:auto;
+            text-align: center;
+            opacity:0.8;
+        }
+        .wrap:hover{
+            opacity:1;
+        }
+
+        .login-wrap{
+            width:290px;
+            height:320px;
+            margin:15% auto 0;
+            position: relative;
+        }
+
+        .login{
+            display: block;
+            margin:auto;
+            padding:40px 40px 30px;
+            position: absolute;
+            background-color:#f8f8f8;
+            background-image:-webkit-linear-gradient(top, #f0f0f0, #ddd);
+            background-image:-moz-linear-gradient(top, #f0f0f0, #ddd);
+            background-image:linear-gradient(top, #f0f0f0, #ddd);
+            border-radius:5px;
+            border:#fff 1px solid;
+            box-shadow: rgba(0,0,0,0.5) 0px 3px 20px;
+            text-align: center;
+        }
+
+        .avatar{
+            display:block;
+            margin:0 auto 15px;
+            width:100px;
+            height:100px;
+            border-radius:100%;
+            border:#fff 3px solid;
+            box-shadow:rgba(0,0,0,0.4) 0px 2px 4px, inset rgba(0,0,0,0.4) 0px 3px 2px;
+            overflow:hidden;
+            background-size: auto, 100%;
+        }
+
+        .pass{
+            display: block;
+            width:170px;
+            margin:20px auto;
+            padding:10px 25px 10px 10px;
+            border-radius:3px;
+            border:#CCC 1px solid;
+        }
+        .login-form{
+            position: relative;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="login-wrap">
+        {% if error is defined %}
+            <div class="alert alert-danger" role="alert">
+                Les identifiants sont erronés. Veuillez réessayer !
+            </div>
+        {% endif %}
+        <div class="login">
+            <div class="avatar">
+                <img src="{{ asset('/images/iconAdmin100.png') }}" alt="" style="width: 100%"/>
+            </div>
+            <form id="login" name="login" class="login-form" method="post">
+                <div class="form-group">
+                    <label for="inputEmail">Username</label>
+                    <input type="text" class="form-control" id="inputEmail" name="inputEmail" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail">Password</label>
+                    <input type="password" placeholder="Password" id="inputPassword" name="inputPassword" class="form-control"/>
+                </div>
+                <button type="submit" class="btn btn-secondary btn-block">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+{% endblock %}
