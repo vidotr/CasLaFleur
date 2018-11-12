@@ -61,13 +61,33 @@ class AdminController extends Controller
      * @Route("/admin/gestProd", name="gestProd")
      */
     public function gestProdAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
         $theProd = $this->getAllProd();
         $form = $this->createForm(ProductType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $cat = $em->getRepository(Category::class)->findOneById(1);
+            $file = $data->getPicture();
+            switch($request->request->get('selectCategory')){
+                case 'pla':{
+                    $fileName = 'pla_'.$file->getClientOriginalName().'.'.$file->getClientOriginalExtension();
+                    $cat = $em->getRepository(Category::class)->findOneById(1);
+                    break;
+                }
+                case 'fle':{
+                    $fileName = 'fle_'.$file->getClientOriginalName().'.'.$file->getClientOriginalExtension();
+                    $cat = $em->getRepository(Category::class)->findOneById(3);
+                    break;
+                }
+                case 'com':{
+                    $fileName = 'com_'.$file->getClientOriginalName().'.'.$file->getClientOriginalExtension();
+                    $cat = $em->getRepository(Category::class)->findOneById(2);
+                    break;
+                }
+            }
+            $file->move($this->getParameter('photos_directory'), $fileName);
+            $data->setPicture($fileName);
+            
             $data->setCategory($cat);
             $em->persist($data);
             $em->flush();
@@ -86,6 +106,18 @@ class AdminController extends Controller
      * @Route("/admin/delProd/{id}", name="adminDelProd")
      */
     public function delProdAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository(Product::class)->findOneById($id);
+        $em->remove($product);
+        $em->flush();
+        
+        return $this->redirectToRoute('gestProd');
+    }
+    
+    /**
+     * @Route("/admin/ajoutProd", name="ajoutProd")
+     */
+    public function ajoutProdAction($id){
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository(Product::class)->findOneById($id);
         $em->remove($product);
