@@ -20,7 +20,7 @@ class ProductType extends AbstractType
         $builder->add('designation', TextType::class, array('attr'=> array('class' => 'form-control', 'placeholder' => 'Entrez un nom'), 'label' => null))
                 ->add('price', NumberType::class, array('attr'=> array('class' => 'form-control', 'placeholder' => 'Entrez le prix'), 'label' => null))
                 ->add('picture', FileType::class, array('attr'=> array('class' => 'form-control-file'), 'label' => null))
-                ->add('save', SubmitType::class, array('attr'=> array('class' => 'btn btn-primary float-right'), 'label' => 'Ajouter'))
+                ->add('save', SubmitType::class, array('attr'=> array('class' => 'btn btn-light float-right'), 'label' => 'Ajouter'))
                 ->getForm();
     }/**
      * {@inheritdoc}

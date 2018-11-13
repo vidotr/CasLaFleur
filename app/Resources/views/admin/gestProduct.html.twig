@@ -10,6 +10,21 @@
             font-family: 'Bree Serif', serif;
             font-size: 24px;
         }
+        .addProd{
+            background-color: rgba(0,0,0,0.8);
+            border-radius: 10%;
+            padding: 2%;
+        }
+        label{
+            font-size: 24px;
+            font-family: 'KoHo', cursive;
+        }
+        .lblAdd{
+            color: white;
+        }
+        .selectImage{
+            color: white;
+        }
     </style>
 {% endblock %}
 {% block body %}
@@ -30,56 +45,33 @@
     <div class="container-fluid">
         <h1>Entrez vos informations de livraison</h1>
         <div class="row justify-content-center">
-            <div class='col-2'>
+            <div class='col-3 addProd'>
                 {{ form_start(form) }}
-                    <div class="form-group">
-                        <label for="">Designation :</label>
-                        {{ form_widget(form.designation)}}
-                    </div>
-                    <div class="form-group">
-                        <label for="">Prix :</label>
-                        {{ form_widget(form.price)}}
-                    </div>
-                    <div class="form-group">
-                        <label for="selectCategory">Catégorie :</label>
-                        <select class="form-control" id="selectCategory" name="selectCategory">
-                            <option valeur="pla">Plante</option>
-                            <option valeur="fle">Fleur</option>
-                            <option valeur="com">Composition</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Photo :</label>
-                        {{ form_widget(form.picture)}}
-                    </div>
-                    {{ form_widget(form.save)}}
+                <div class="form-group">
+                    <label class="lblAdd" for="">Designation :</label>
+                    {{ form_widget(form.designation)}}
+                </div>
+                <div class="form-group">
+                    <label class="lblAdd" for="">Prix :</label>
+                    {{ form_widget(form.price)}}
+                </div>
+                <div class="form-group">
+                    <label class="lblAdd" for="selectCategory">Catégorie :</label>
+                    <select class="form-control" id="selectCategory" name="selectCategory">
+                        <option>Plante</option>
+                        <option>Fleur</option>
+                        <option>Composition</option>
+                    </select>
+                </div>
+                <div class="form-group selectImage">
+                    <label class="lblAdd" for="">Photo :</label>
+                    {{ form_widget(form.picture)}}
+                </div>
+                {{ form_widget(form.save)}}
                 {{ form_end(form) }}
-                <!--form action="upload.php" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="designation">Designation :</label>
-                        <input type="text" class="form-control" name="designation" id="designation" placeholder="Entrez la description la description">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Prix :</label>
-                        <input type="text" class="form-control" name="price" id="price" placeholder="Entrez le prix">
-                    </div>
-                    <div class="form-group">
-                        <label for="selectCategory">Catégorie :</label>
-                        <select class="form-control" id="selectCategory" name="selectCategory">
-                            <option valeur="pla">Plante</option>
-                            <option valeur="fle">Fleur</option>
-                            <option valeur="com">Composition</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="photo">Photo :</label>
-                        <input type="file" class="form-control-file" id="photo" name="photo">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Ajouter</button>
-                </form-->
             </div>
         </div>
-            <br><br>
+        <br><br>
         <h1>Liste des produits</h1>
         <br>
         {% for prod in listProd %}
@@ -98,12 +90,93 @@
                 <div class='col-1'>
                     <br><br>
                     <div class="row justify-content-center">
-                        <a class="btn btn-warning"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;
-                        <a href="/admin/delProd/{{prod.id}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal" data-id="{{prod.id}}" data-designation="{{prod.designation}}" data-picture="{{prod.picture}}" data-price="{{prod.price}}" data-category="{{prod.category.description}}"><i class="fas fa-edit"></i></button>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delModal" data-id="{{prod.id}}"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>
             </div>
-                <hr>
+            <hr>
         {% endfor %}
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Modifier</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(formEdit) }}
+                        <div class="form-group">
+                            <label for="">Designation :</label>
+                            {{ form_widget(formEdit.designation)}}
+                        </div>
+                        <div class="form-group">
+                            <label for="">Prix :</label>
+                            {{ form_widget(formEdit.price)}}
+                        </div>
+                        <div class="form-group">
+                            <label for="">Categorie :</label>
+                            {{ form_widget(formEdit.category)}}
+                        </div>
+                        <div class="form-group">
+                            <label for="">Photo :</label>
+                            {{ form_widget(formEdit.picture)}}
+                        </div>
+                        {{ form_widget(formEdit.save)}}
+                    {{ form_end(formEdit) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Confirmer la suppression ?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                    <form id="delForm">
+                        <button type="submit" class="btn btn-success">Oui</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $('#delModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var modal = $(this);
+                modal.find('.modal-footer #delForm').attr('action', '/admin/delProd/' + id);
+            });
+            
+            $('#editModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var designation = button.data('designation');
+                var price = button.data('price');
+                var category = button.data('category');
+                
+                var modal = $(this);
+                modal.find('.modal-body #form_id').val(id);
+                modal.find('.modal-body #form_designation').val(designation);
+                modal.find('.modal-body #form_price').val(price);
+                modal.find('.modal-body #form_category').val(category);
+            });
+        });
+
+    </script>
 {% endblock %}

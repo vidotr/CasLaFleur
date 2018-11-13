@@ -8,6 +8,11 @@ use AppBundle\Entity\Product;
 use AppBundle\Form\ProductType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 
 class AdminController extends Controller
@@ -65,34 +70,57 @@ class AdminController extends Controller
         $theProd = $this->getAllProd();
         $form = $this->createForm(ProductType::class);
         $form->handleRequest($request);
+        $formEdit = $this->createTheFormEdit($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $file = $data->getPicture();
             switch($request->request->get('selectCategory')){
-                case 'pla':{
-                    $fileName = 'pla_'.$file->getClientOriginalName().'.'.$file->getClientOriginalExtension();
+                case 'Plante':{
+                    $fileName = 'pla_'.$file->getClientOriginalName();
                     $cat = $em->getRepository(Category::class)->findOneById(1);
                     break;
                 }
-                case 'fle':{
-                    $fileName = 'fle_'.$file->getClientOriginalName().'.'.$file->getClientOriginalExtension();
+                case 'Fleur':{
+                    $fileName = 'fle_'.$file->getClientOriginalName();
                     $cat = $em->getRepository(Category::class)->findOneById(3);
                     break;
                 }
-                case 'com':{
-                    $fileName = 'com_'.$file->getClientOriginalName().'.'.$file->getClientOriginalExtension();
+                case 'Composition':{
+                    $fileName = 'com_'.$file->getClientOriginalName();
                     $cat = $em->getRepository(Category::class)->findOneById(2);
                     break;
                 }
             }
             $file->move($this->getParameter('photos_directory'), $fileName);
-            $data->setPicture($fileName);
-            
+            $data->setPicture('/products/'.$fileName);
             $data->setCategory($cat);
             $em->persist($data);
             $em->flush();
+            return $this->redirectToRoute('gestProd');
         }
-        return $this->render('admin/gestProduct.html.twig', ['form' => $form->createView(), 'listProd' => $theProd]);
+        
+        if ($formEdit->isSubmitted() && $formEdit->isValid()) {
+            $data = $formEdit->getData();
+            $product = $em->getRepository(Product::class)->findOneById($data['id']);
+            if($data['picture'] != null){
+                $file = $data['picture'];
+                switch($product->getCategory()->getDescription()){
+                    case 'Plantes': $fileName = 'pla_'.$file->getClientOriginalName(); break;
+                    case 'Fleurs': $fileName = 'fle_'.$file->getClientOriginalName(); break;
+                    case 'Composition': $fileName = 'com_'.$file->getClientOriginalName(); break;
+                }
+                var_dump($product->getCategory()->getDescription());
+                unlink($this->getParameter('photos_directory').'/'. substr($product->getPicture(), 10));
+                $file->move($this->getParameter('photos_directory'), $fileName);
+                $product->setPicture('/products/'.$fileName);
+            }
+            $product->setDesignation($data['designation']);
+            $product->setPrice($data['price']);
+            $em->persist($product);
+            $em->flush();
+            return $this->redirectToRoute('gestProd');
+        }
+        return $this->render('admin/gestProduct.html.twig', ['form' => $form->createView(), 'listProd' => $theProd, 'formEdit' => $formEdit->createView()]);
     }
     
     private function getAllProd(){
@@ -124,5 +152,19 @@ class AdminController extends Controller
         $em->flush();
         
         return $this->redirectToRoute('gestProd');
+    }
+    
+    private function createTheFormEdit($req){
+        $form = $this->createFormBuilder()
+                ->add('id', HiddenType::class)
+                ->add('designation', TextType::class, array('attr'=> array('class' => 'form-control'), 'label' => null))
+                ->add('price', NumberType::class, array('attr'=> array('class' => 'form-control'), 'label' => null))
+                ->add('category', TextType::class, array('attr'=> array('class' => 'form-control', 'disabled' => true), 'label' => null))
+                ->add('picture', FileType::class, array('attr'=> array('class' => 'form-control-file'), 'label' => null, 'required' => false))
+                ->add('save', SubmitType::class, array('attr'=> array('class' => 'btn btn-dark float-right'), 'label' => 'Modifier'))
+                ->getForm();
+        $form->handleRequest($req);
+        
+        return $form;
     }
 }
